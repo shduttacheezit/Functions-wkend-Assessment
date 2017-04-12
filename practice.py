@@ -170,7 +170,8 @@ characteristics = sign_and_parity(-6)
 sign = characteristics[0]
 parity = characteristics[1]
 
-print sign and parity
+print sign 
+print parity
 
 ###############################################################################
 

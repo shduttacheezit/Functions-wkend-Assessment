@@ -15,16 +15,31 @@ go below this docstring.
 
 #    (a) Write a function that takes a town name as a string and evaluates to
 #        `True` if it is your hometown, and `False` otherwise.
+def town_name(s):
+    """Evaluates True or False if it is my hometown"""
+    if s == "North Brunswick":
+        return True
+    else:
+        return False
 
 #    (b) Write a function that takes a first and last name as arguments and
 #        returns the concatenation of the two names in one string.
+def first_and_last(first, last):
+    """Returns full name."""
+    return first.capitalize() + " " + last.capitalize()
 
 #    (c) Write a function that takes a home town, a first name, and a last name
 #        as arguments, calls both functions from part (a) and (b) and prints
 #        "Hi, 'full name here', we're from the same place!", or "Hi 'full name
 #        here', I'd like to visit 'town name here'!" depending on what the function
 #        from part (a) evaluates to.
-
+def meeting(hometown, first, last):
+    """Returns a greeting with full name and reference to their hometown"""
+    fullname = first_and_last(first, last)
+    if town_name(hometown) == True: 
+        print "Hi,", fullname + ",", "we're from the same place!"
+    if town_name(hometown) == False: 
+        print "Hi,", fullname + ",", "I'd like to visit", hometown.capitalize()+ "."
 ###############################################################################
 
 # PART TWO
@@ -69,8 +84,12 @@ def is_berry(fruit):
     False
 
     """
+    if fruit == "strawberry": return True
+    if fruit == "raspberry": return True
+    if fruit == "blackberry": return True
+    else: 
+        return False
 
-    pass
 
 
 def shipping_cost(fruit):
@@ -83,8 +102,10 @@ def shipping_cost(fruit):
     5
 
     """
-
-    pass
+    if is_berry(fruit) == True: 
+        return 0 
+    if is_berry(fruit) == False: 
+        return 5
 
 
 def append_to_list(lst, num):
@@ -95,11 +116,11 @@ def append_to_list(lst, num):
     [3, 5, 7, 2]
 
     """
+    lst.extend([num])
 
-    pass
+    print lst
 
-
-def calculate_price(FILL_ME_IN):
+def calculate_price(base_price, state, tax=.05):
     """Calculate total price of an item, figuring in state taxes and fees.
 
     >>> calculate_price(40, "CA")
@@ -121,8 +142,20 @@ def calculate_price(FILL_ME_IN):
     135.3
 
     """
+    total = float(base_price) + (float(tax)*float(base_price))
 
-    pass
+    if state == "CA": 
+        total += .03*total
+    if state == "PA":
+        total += 2.0
+    if state == "MA": 
+        if base_price >= 100.00:
+            total += 3.0
+        if base_price < 100.00:
+            total += 1.0
+
+    return total 
+
 
 
 ###############################################################################
@@ -136,6 +169,15 @@ def calculate_price(FILL_ME_IN):
 #        arguments, appends them to the list, and returns the entire list. Hint: this
 #        isn't something we've discussed yet in class; you might need to google how to
 #        write a Python function that takes in an arbitrary number of arguments.
+def append_list_with_args(*args):
+    if len(args) == 1: 
+        return args[0]
+    else:
+        lst = args[0]
+        lst.extend(args[1:])
+        return lst 
+
+
 
 #    (b) Make a new function with a nested inner function.
 #        The outer function will take in a word.
@@ -148,7 +190,18 @@ def calculate_price(FILL_ME_IN):
 
 #        >>> outer("Balloonicorn")
 #        ('Balloonicorn', 'BalloonicornBalloonicornBalloonicorn')
+def outer(word): 
+    """Returns tuple of word and word repeated 3 times as string"""
 
+    def inner(word): 
+        """Returns word repeated 3 times as a string"""
+        return word * 3 
+
+    output = list()
+    output.append(word)
+    output.append(inner(word))
+
+    print tuple(output)
 
 ###############################################################################
 
